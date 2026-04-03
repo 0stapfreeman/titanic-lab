@@ -25,7 +25,9 @@ def preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked):
     embarked_Q = 1 if embarked == 'Q' else 0
     embarked_S = 1 if embarked == 'S' else 0
 
+    # Add PassengerId column with a default value (e.g., 0)
     input_data = pd.DataFrame({
+        'PassengerId': [0],
         'Pclass': [pclass],
         'Age': [age],
         'SibSp': [sibsp],
@@ -37,8 +39,8 @@ def preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked):
         'Embarked_S': [embarked_S]
     })
 
-    # Add missing columns and ensure correct order
-    TRAINING_COLUMNS = ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex_male', 'Embarked_C', 'Embarked_Q', 'Embarked_S']
+    # Ensure the columns match the training data
+    TRAINING_COLUMNS = ['PassengerId', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex_male', 'Embarked_Q', 'Embarked_S']
     for col in TRAINING_COLUMNS:
         if col not in input_data.columns:
             input_data[col] = 0

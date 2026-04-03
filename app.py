@@ -48,11 +48,14 @@ def preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked):
 
 # Predict survival
 if st.button('Predict'):
-    input_data = preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked)
-    prediction = model.predict(input_data)
-    prediction_proba = model.predict_proba(input_data)
+    try:
+        input_data = preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked)
+        prediction = model.predict(input_data)
+        prediction_proba = model.predict_proba(input_data)
 
-    if prediction[0] == 1:
-        st.success(f'The passenger is likely to survive with a probability of {prediction_proba[0][1]:.2f}.')
-    else:
-        st.error(f'The passenger is unlikely to survive with a probability of {prediction_proba[0][0]:.2f}.')
+        if prediction[0] == 1:
+            st.success(f'The passenger is likely to survive with a probability of {prediction_proba[0][1]:.2f}.')
+        else:
+            st.error(f'The passenger is unlikely to survive with a probability of {prediction_proba[0][0]:.2f}.')
+    except ValueError as e:
+        st.error(f"An error occurred: {e}")

@@ -37,12 +37,13 @@ def preprocess_input(pclass, age, sibsp, parch, fare, sex, embarked):
         'Embarked_S': [embarked_S]
     })
 
-    # Ensure all columns are present
+    # Add missing columns and ensure correct order
     TRAINING_COLUMNS = ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex_male', 'Embarked_C', 'Embarked_Q', 'Embarked_S']
     for col in TRAINING_COLUMNS:
         if col not in input_data.columns:
             input_data[col] = 0
 
+    input_data = input_data[TRAINING_COLUMNS]
     return input_data
 
 # Predict survival
